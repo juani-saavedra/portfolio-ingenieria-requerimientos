@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Ingeniería de Requerimientos — Juan Ignacio Saavedra</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-2: #1f2937;
+      --border: #2d3748;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 1.5rem 2.5rem;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .badge-inst {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); font-size: 1.05rem; margin-top: 0.4rem; }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.75rem;
+      background: rgba(17, 24, 39, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .meta-item span { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.05em; }
+    .meta-item strong { font-size: 0.95rem; color: #fff; }
+
+    .group-box {
+      margin-top: 1.25rem;
+      background: rgba(31, 41, 55, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .group-members { font-size: 0.9rem; color: #e5e7eb; }
+    .group-members strong { color: var(--accent); }
+    .ext-links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .btn-link {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      transition: 0.2s;
+    }
+    .btn-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    main { padding: 2.2rem 1.5rem 4rem; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+    .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .filter-btn {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      color: #0b0f19;
+      border-color: var(--accent);
+    }
+    .search-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      min-width: 260px;
+      font-size: 0.9rem;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+
+    .section-title {
+      font-size: 1.3rem;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.15rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.18s, border-color 0.18s;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tag-ind { background: rgba(52, 211, 153, 0.14); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.35); }
+    .tag-grp { background: rgba(129, 140, 248, 0.15); color: var(--accent-2); border: 1px solid rgba(129, 140, 248, 0.35); }
+    .tag-ia  { background: rgba(251, 191, 36, 0.15); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.35); }
+    .card h3 { font-size: 1.08rem; margin-bottom: 0.5rem; color: #fff; }
+    .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.1rem; }
+    .btn-open {
+      width: 100%;
+      background: var(--surface-2);
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-open:hover { background: var(--accent); color: #0b0f19; border-color: var(--accent); }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(3, 7, 18, 0.82);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 50;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 880px;
+      width: 100%;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #0f172a;
+    }
+    .modal-header h2 { font-size: 1.25rem; }
+    .close-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: #fff;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.94rem;
+      color: #e5e7eb;
+    }
+    .modal-body h4 { color: var(--accent); margin: 1.2rem 0 0.5rem; font-size: 1rem; }
+    .modal-body h4:first-child { margin-top: 0; }
+    .modal-body ul, .modal-body ol { padding-left: 1.3rem; margin-bottom: 0.8rem; }
+    .modal-body li { margin-bottom: 0.35rem; }
+    .modal-body table { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.2rem; font-size: 0.86rem; }
+    .modal-body th, .modal-body td { border: 1px solid var(--border); padding: 0.55rem 0.7rem; text-align: left; }
+    .modal-body th { background: var(--surface-2); color: var(--accent); }
+    .chat-box {
+      background: #0b0f19;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 0.6rem;
+      max-height: 360px;
+      overflow-y: auto;
+    }
+    .msg { margin-bottom: 0.75rem; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.88rem; }
+    .msg-ia { background: #172033; border-left: 3px solid var(--amber); }
+    .msg-st { background: #132a24; border-left: 3px solid var(--green); }
+    .msg strong { display: block; font-size: 0.78rem; margin-bottom: 0.2rem; color: var(--muted); }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge-inst">Universidad Abierta Interamericana (UAI) · Facultad de Tecnología Informática</span>
+    <h1>Juan Ignacio Saavedra</h1>
+    <p class="subtitle">Portfolio de Cursada — Ingeniería de Requerimientos (Año 2026)</p>
+
+    <div class="meta-grid">
+      <div class="meta-item"><span>Estudiante</span><strong>Juan Ignacio Saavedra</strong></div>
+      <div class="meta-item"><span>Asignatura</span><strong>Ingeniería de Requerimientos</strong></div>
+      <div class="meta-item"><span>Universidad / Sede</span><strong>UAI · Sede Lomas de Zamora (Com. 2-A)</strong></div>
+      <div class="meta-item"><span>Docente</span><strong>Prof. Marcela Samela</strong></div>
+    </div>
+
+    <div class="group-box">
+      <div class="group-members">
+        <strong>Integrantes Grupo 4 (Trabajos Grupales):</strong>
+        Damián Ezequiel Bacque · Santiago Joaquín Pelozo · Juan Ignacio Saavedra · Facundo Nicolás Tateossian · Liam Gabriel Tejada Fusaro
+      </div>
+      <div class="ext-links">
+        <a class="btn-link" href="https://drive.google.com/file/d/10mxqqaCMaUjrEz-C-1_kOFgYkBM8JRrI/view" target="_blank" rel="noopener">Logo & Justificación (Drive)</a>
+        <a class="btn-link" href="https://portfolio-facundotateossian.vercel.app/" target="_blank" rel="noopener">Portfolio Compañero (Grupo 4)</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="controls">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Todos (15)</button>
+      <button class="filter-btn" data-filter="ia">Entrevistas IA (3)</button>
+      <button class="filter-btn" data-filter="individual">Individuales (6)</button>
+      <button class="filter-btn" data-filter="grupal">Grupales — Grupo 4 (9)</button>
+    </div>
+    <input type="text" id="searchInput" class="search-input" placeholder="Buscar por tema, caso o artefacto..." />
+  </div>
+
+  <div class="grid" id="cardsGrid"></div>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <div>
+        <div id="modalTag" style="margin-bottom:0.35rem;"></div>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <button class="close-btn" id="closeModal" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<footer>
+  Juan Ignacio Saavedra · Ingeniería de Requerimientos · Prof. Marcela Samela · Universidad Abierta Interamericana (2026)
+</footer>
+
+<script>
+const ITEMS = [
+  // 3 ENTREVISTAS CON IA (INDIVIDUALES)
+  {
+    id: "ia-1",
+    category: ["individual", "ia"],
+    badge: "Individual · Entrevista IA #1",
+    badgeClass: "tag-ia",
+    title: "Simulación IA #1: Martín Ferraro (Visión de Producto y Experiencia — Mercury S.A.)",
+    summary: "Juego de roles centrado en experiencia de usuario, notificaciones push emocionales, Club Mercury, sistema de referidos y muro comunitario. Incluye interacción completa, minuta y RF/RNF.",
+    content: `
+      <h4>1. Minuta de la Entrevista</h4>
+      <ul>
+        <li><strong>Analista Funcional:</strong> Juan Ignacio Saavedra (Producción Individual)</li>
+        <li><strong>Interlocutor (IA):</strong> Martín Ferraro — Dirección de Producto / Experiencia de Marca (Mercury S.A.)</li>
+        <li><strong>Objetivo:</strong> Elicitar la visión estratégica, diferenciación emocional, fidelización y experiencia móvil para clientes y repartidores de Mercury S.A.</li>
+        <li><strong>Hallazgos clave:</strong> Enfoque minimalista y elegante; notificaciones push con identidad sonora y visual propia en hitos críticos; programa de membresía exclusivo (<em>Club Mercury</em>) con precios diferenciales, referidos en dos clics y muro social curado.</li>
+      </ul>
+      <h4>2. Requerimientos Funcionales (RF) Obtenidos</h4>
+      <ul>
+        <li><strong>RF-01:</strong> Permitir al cliente calificar el servicio recibido.</li>
+        <li><strong>RF-02:</strong> Permitir al cliente visualizar el seguimiento en tiempo real de sus pedidos.</li>
+        <li><strong>RF-03:</strong> Permitir al repartidor confirmar la entrega de un pedido.</li>
+        <li><strong>RF-04:</strong> Permitir al Auditor interno gestionar reclamos y visualizar calificaciones filtradas por repartidor.</li>
+        <li><strong>RF-05:</strong> Permitir al Repartidor visualizar sus calificaciones por servicio.</li>
+        <li><strong>RF-06:</strong> Emitir alertas automáticas al Auditor ante una mala calificación de servicio.</li>
+        <li><strong>RF-07:</strong> Enviar notificaciones Push ante hitos clave (salida de sucursal, llegada a correo, proximidad y arribo a destino).</li>
+        <li><strong>RF-08:</strong> Registrar el vínculo de referido cuando un nuevo cliente se da de alta por invitación y disparar notificaciones exclusivas.</li>
+        <li><strong>RF-09:</strong> Limitar la visualización completa de publicaciones del muro a miembros del Club Mercury y permitirles publicar y reaccionar.</li>
+      </ul>
+      <h4>3. Requerimientos No Funcionales (RNF) Obtenidos</h4>
+      <ul>
+        <li><strong>RNF-01 (Arquitectura / Estado):</strong> Mantener actualizado en tiempo real el estado del pedido mediante patrón Observer persistido en base de datos.</li>
+        <li><strong>RNF-02 (Algoritmia / Ruteo):</strong> Calcular la ruta óptima del repartidor hacia el destino aplicando el algoritmo A*.</li>
+        <li><strong>RNF-03 (Identidad Sonora y Visual):</strong> Incorporar biblioteca de sonidos propios (timbre exclusivo al arribo) y mensaje de marca («Tu pedido ha llegado. Vive la experiencia Mercury.») más bienvenida animada al Club Mercury.</li>
+        <li><strong>RNF-04 (Conectividad):</strong> Operar bajo conexión a internet activa para sincronización de eventos en vivo.</li>
+      </ul>
+      <h4>4. Transcripción de la Interacción con IA</h4>
+      <div class="chat-box">
+        <div class="msg msg-ia"><strong>Martín Ferraro (IA)</strong>Hola, mi nombre es Martín Ferraro. Quiero escuchar tus ideas iniciales sobre cómo la nueva aplicación de Mercury S.A. puede transformar la experiencia de nuestros clientes. No me hables de menús ni de botones: háblame de impacto, de magia.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>La aplicación móvil está enfocada en mejorar la experiencia del usuario permitiéndole visualizar un seguimiento en tiempo real de un servicio de entrega, además de realizar reclamos y calificar el servicio recibido. Primero necesito aclarar: ¿quién audita y gestiona los reclamos y las clasificaciones del servicio?</div>
+        <div class="msg msg-ia"><strong>Martín Ferraro (IA)</strong>Nuestro equipo interno monitoreará todo eso, pero quiero que el sistema lo haga simple, casi automático. Si el reclamo es serio, lo atiende un humano; si es rutinario, lo resuelve el sistema.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>Propongo enviar actualizaciones mediante notificaciones Push en momentos clave (salida de sucursal, llegada al correo, proximidad y arribo) con un timbre elegante, gif minimalista y mensaje exclusivo: «Tu pedido ya está en la puerta, recibilo y comenzá a disfrutar de la experiencia Mercury».</div>
+        <div class="msg msg-ia"><strong>Martín Ferraro (IA)</strong>Ese combo debe ser el sello Mercury. ¿Cómo harías para que este ritual se convierta en fidelización y comunidad?</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>Dando bienvenida al Club Mercury tras recibir el pedido, permitiendo referir contactos en dos clics con beneficios mutuos, mostrando precios tachados vs. beneficio Club de forma minimalista y habilitando un muro curado de experiencias con acceso limitado para no miembros.</div>
+      </div>
+    `
+  },
+  {
+    id: "ia-2",
+    category: ["individual", "ia"],
+    badge: "Individual · Entrevista IA #2",
+    badgeClass: "tag-ia",
+    title: "Simulación IA #2: Lucía San Juan (Administración, Finanzas y BI — Mercury S.A.)",
+    summary: "Juego de roles con stakeholder exigente de Finanzas: circuito de facturas digitales/físicas, pagos por lote, conciliación bancaria automática, 4 tableros BI, alertas autogestionables y aprobación móvil.",
+    content: `
+      <h4>1. Minuta de la Entrevista (ISO/IEC/IEEE 29148)</h4>
+      <ul>
+        <li><strong>Analista Funcional:</strong> Juan Ignacio Saavedra (Producción Individual)</li>
+        <li><strong>Interlocutora (IA):</strong> Lucía San Juan — Gerente de Administración y Finanzas (Mercury S.A.)</li>
+        <li><strong>Objetivo:</strong> Relevar requerimientos funcionales, operativos, de inteligencia de negocios (BI), auditoría y sincronización móvil para el circuito de facturación, pagos y conciliación bancaria.</li>
+        <li><strong>Problemas detectados:</strong> Doble carga manual de facturas (digitales y en papel), controles paralelos en Excel por fallas de conciliación bancaria, falta de visibilidad en tiempo real y ausencia de aprobación móvil ante alertas críticas.</li>
+        <li><strong>Volumen operativo relevado:</strong> 800 a 900 facturas mensuales y ~250 órdenes de pago mensuales (~1.200 transacciones/mes con picos en cierres contables).</li>
+      </ul>
+      <h4>2. Requerimientos Funcionales (RF) Obtenidos</h4>
+      <ul>
+        <li><strong>RF-01 — Registro unificado de facturas:</strong> Permitir cargar facturas digitales y físicas (adjuntando respaldo digitalizado) con guardado seguro por pasos y validación de duplicados.</li>
+        <li><strong>RF-02 — Imputación de pagos 1 a 1 y por lote:</strong> Soportar cancelación individual de facturas y emisión de órdenes de pago que agrupen múltiples facturas y pagos parciales.</li>
+        <li><strong>RF-03 — Conciliación bancaria automática:</strong> Cruzar automáticamente comprobantes, montos, proveedores y extractos bancarios sin cotejo manual en Excel.</li>
+        <li><strong>RF-04 — Tablero de Inteligencia de Negocios (BI):</strong> Proveer 4 reportes en tiempo real con filtros y exportación: (1) flujo de pagos/cobranzas, (2) desvíos facturado vs. pagado, (3) antigüedad de deuda por proveedor, y (4) costos y márgenes por operación.</li>
+        <li><strong>RF-05 — Configuración autónoma de alertas:</strong> Permitir a Gerencia parametrizar umbrales y disparadores (vencimientos próximos/vencidos, desvíos significativos, tope de deuda por proveedor y costos extraordinarios) sin depender de Sistemas.</li>
+        <li><strong>RF-06 — Notificaciones multicanal:</strong> Enviar alertas por correo electrónico, aviso interno en el sistema y notificación push configurable en la app móvil.</li>
+        <li><strong>RF-07 — Módulo móvil gerencial:</strong> Permitir aprobar/rechazar pagos y órdenes desde el celular, filtrar por proveedor/operación, visualizar reportes principales y responder alertas críticas con comentarios.</li>
+        <li><strong>RF-08 — Segregación de roles y auditoría:</strong> Restringir carga/validación de facturas a analistas y reservar autorización de pagos, edición de umbrales y reportes consolidados a Coordinación/Gerencia, auditando cada acción con usuario, fecha, hora y detalle.</li>
+      </ul>
+      <h4>3. Requerimientos No Funcionales (RNF) Obtenidos</h4>
+      <ul>
+        <li><strong>RNF-01 — Validación por prototipos navegables:</strong> Entregar prototipos funcionales iterativos con circuitos operativos simulados como condición de aprobación por etapa.</li>
+        <li><strong>RNF-02 — Rendimiento en cierres contables:</strong> Soportar picos de fin de mes (~1.200 transacciones mensuales) sin degradación de latencia ni bloqueo de sesiones.</li>
+        <li><strong>RNF-03 — Interoperabilidad móvil en tiempo real:</strong> Sincronizar estados financieros, alertas push y aprobaciones gerenciales con la app móvil de Mercury S.A.</li>
+        <li><strong>RNF-04 — Integridad y no repudio de auditoría:</strong> Garantizar registros inmutables de auditoría accesibles exclusivamente por Gerencia.</li>
+      </ul>
+      <h4>4. Transcripción de la Interacción con IA</h4>
+      <div class="chat-box">
+        <div class="msg msg-ia"><strong>Lucía San Juan (IA)</strong>Soy Lucía San Juan, gerente de administración y finanzas en Mercury S.A. Necesito agilizar la registración de facturas, ingreso de pagos y reportes BI integrados con la app móvil. Exijo ver cada prototipo funcional antes de aprobar.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>Trabajaremos con entregas y prototipos visibles. Hoy, al registrar una factura y asociarle su pago, ¿dónde se produce la mayor pérdida de tiempo o error?</div>
+        <div class="msg msg-ia"><strong>Lucía San Juan (IA)</strong>En la carga manual lenta y propensa a duplicados, y en la conciliación: termino controlando en Excel porque el sistema no cruza bien los datos.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>El circuito tendrá guardado por pasos y conciliación automática. ¿Las facturas son digitales o en papel, y los pagos son factura por factura o por lote?</div>
+        <div class="msg msg-ia"><strong>Lucía San Juan (IA)</strong>Son mixtas (digitales y papel) y pagamos tanto 1 a 1 como por lote en órdenes de pago. En BI necesito en tiempo real: flujo de pagos/cobranzas, desvíos facturado vs. pagado, antigüedad de deuda por proveedor y márgenes por operación, exportables y con alertas automáticas configurables por mí.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>Incluiremos el panel de umbrales autogestionables, notificaciones por mail, sistema y push, aprobación rápida desde el celular, roles estrictos con auditoría completa y conciliación bancaria automatizada preparada para los picos de cierre de 1.200 transacciones mensuales.</div>
+      </div>
+    `
+  },
+  {
+    id: "ia-3",
+    category: ["individual", "ia"],
+    badge: "Individual · Entrevista IA #3",
+    badgeClass: "tag-ia",
+    title: "Simulación IA #3: Alberto Torres (Arquitectura IT, Seguridad y Offline — Mercury S.A.)",
+    summary: "Entrevista técnica bajo estándar ISO/IEC/IEEE 29148: integración REST con ERP legacy mediante colas/buffers, GPS cada 30s, 800 usuarios concurrentes, OAuth2, sync offline y cifrado TLS 1.2 / AES-256.",
+    content: `
+      <h4>1. Minuta e Informe Técnico (ISO/IEC/IEEE 29148)</h4>
+      <ul>
+        <li><strong>Analista Funcional:</strong> Juan Ignacio Saavedra (Producción Individual)</li>
+        <li><strong>Interlocutor (IA):</strong> Alberto Torres — Jefe de Sistemas / Responsable de IT (Mercury S.A.)</li>
+        <li><strong>Objetivo:</strong> Relevar arquitectura tecnológica, integración con ERP propio, motor de ruteo y plataforma de entregas, restricciones de rendimiento, modo offline y seguridad normativa.</li>
+        <li><strong>Riesgos y pendientes detectados:</strong> Limitaciones de escalabilidad del ERP ante alta concurrencia (mitigable con colas/buffers), resolución de conflictos offline por timestamp y definición futura de SLA exacto y cuotas locales.</li>
+      </ul>
+      <h4>2. Requerimientos Funcionales (RF-01 a RF-10)</h4>
+      <ul>
+        <li><strong>RF-01 / RF-02:</strong> Autenticación y autorización basada en roles mediante OAuth2 (con refresh tokens y login social para clientes).</li>
+        <li><strong>RF-03 / RF-04:</strong> Transmisión GPS de repartidores cada 30s (±2s) en ruta y seguimiento en tiempo real en app de clientes.</li>
+        <li><strong>RF-05 / RF-06:</strong> Registro offline de entregas, fotos y firma digital con sincronización automática al reconectar y resolución de conflictos por timestamp (reintentar, fusionar o aceptar servidor).</li>
+        <li><strong>RF-07 / RF-08:</strong> Envío de reclamos/calificaciones de clientes al módulo de atención del ERP y reporte de incidentes operativos/seguridad de repartidores a Entregas y RR.HH.</li>
+        <li><strong>RF-09 / RF-10:</strong> Gestión explícita de consentimiento y derecho al borrado (GDPR) y auditoría detallada de acciones críticas.</li>
+      </ul>
+      <h4>3. Requerimientos No Funcionales (RNF-01 a RNF-08)</h4>
+      <ul>
+        <li><strong>RNF-01 / RNF-02:</strong> Integración exclusiva mediante APIs REST estándar desacopladas del ERP mediante colas/buffers.</li>
+        <li><strong>RNF-03 / RNF-04:</strong> Soporte de al menos 800 usuarios concurrentes en hora pico con tiempo de respuesta p95 &le; 2 segundos.</li>
+        <li><strong>RNF-05 / RNF-06:</strong> Cifrado en tránsito TLS 1.2+ y cifrado en reposo/logs AES-256.</li>
+        <li><strong>RNF-07 / RNF-08:</strong> Compatibilidad con Android 8.0+ e iOS 13.0+ y cumplimiento integral de GDPR.</li>
+      </ul>
+      <h4>4. Transcripción de la Interacción con IA</h4>
+      <div class="chat-box">
+        <div class="msg msg-ia"><strong>Alberto Torres (IA)</strong>Hola, soy Alberto Torres, Jefe de Sistemas de Mercury S.A. Estoy listo para responder tus consultas sobre integración de sistemas internos, seguridad, rendimiento y compatibilidad.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>¿Con qué sistemas internos se manejan hoy, cómo se obtiene la ubicación GPS y cuál es el volumen de usuarios concurrentes en hora pico?</div>
+        <div class="msg msg-ia"><strong>Alberto Torres (IA)</strong>Usamos un ERP propio, motor de ruteo y plataforma de entregas; todo debe integrarse por APIs REST. El GPS se reporta cada 30 segundos y proyectamos 800 usuarios concurrentes en hora pico.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>¿Cómo manejan autenticación OAuth2, comportamiento offline en zonas sin señal, resolución de conflictos al reconectar y tiempos máximos de respuesta?</div>
+        <div class="msg msg-ia"><strong>Alberto Torres (IA)</strong>OAuth2 con login social para clientes, modo offline con fotos/firma, resolución por timestamp con notificación y opciones al repartidor, y latencia máxima de 2 segundos.</div>
+        <div class="msg msg-st"><strong>Juan Ignacio Saavedra</strong>¿Qué cifrado, versiones mínimas de SO, destino de reclamos/incidentes y nivel de auditoría exigen considerando la deuda técnica del ERP?</div>
+        <div class="msg msg-ia"><strong>Alberto Torres (IA)</strong>TLS 1.2+ en tránsito, AES-256 en reposo, cumplimiento GDPR, Android 8.0+ e iOS 13.0+, logs cifrados y colas/buffers para proteger al ERP de picos de demanda.</div>
+      </div>
+    `
+  },
+
+  // OTRAS 3 ACTIVIDADES INDIVIDUALES
+  {
+    id: "ind-clase3",
+    category: ["individual"],
+    badge: "Individual · Clase 3",
+    badgeClass: "tag-ind",
+    title: "Ejercitación Clase 3: Requerimientos en el Ciclo de Vida y Calidad",
+    summary: "Articulación transversal de los requerimientos en modelos predictivos e iterativos, aplicación real de elicitación (observación + entrevista) en caja/billeteras virtuales y análisis de verificación vs. validación.",
+    content: `
+      <h4>1. Articulación de los Requerimientos en el Ciclo de Vida</h4>
+      <ul>
+        <li><strong>Enfoque transversal:</strong> Los requerimientos atraviesan todo el ciclo de vida: en cascada alimentan diseño, pruebas y mantenimiento; en modelos iterativos evolucionan en cada ciclo.</li>
+        <li><strong>Proceso (Elicitación):</strong> Descubrimiento de necesidades reales que definen qué se diseña y qué se prueba.</li>
+        <li><strong>Técnica (Observación contextual + Entrevista):</strong> Aplicada a la acreditación de comprobantes contra billeteras virtuales, revelando verificaciones tácitas que no surgen en una entrevista aislada.</li>
+        <li><strong>Producto (Historia de Usuario con Criterios de Aceptación):</strong> «Como cajero, quiero acreditar una carga cuando el monto del comprobante coincide con el ingreso en la billetera, para que el usuario pueda operar con su saldo correspondiente.»</li>
+      </ul>
+      <h4>2. Requerimientos y Calidad (IEEE, Deming y Pirsig)</h4>
+      <p>Diferenciación entre cumplir la especificación técnica y satisfacer las necesidades/expectativas reales del usuario, vinculando el modelo en V con la distinción clave entre <strong>verificar</strong> (construir el producto correctamente) y <strong>validar</strong> (construir el producto correcto).</p>
+      <h4>3. Impacto Positivo y Negativo en la Práctica</h4>
+      <ul>
+        <li><strong>Impacto negativo:</strong> Acreditación manual basada en criterios implícitos («parecía correcto») sin detección de comprobantes duplicados, generando desfasajes detectados recién al cierre de caja.</li>
+        <li><strong>Impacto positivo:</strong> Definición explícita de reglas de coincidencia, estados observados, roles y auditoría desde el inicio al desarrollar una app de conciliación, evitando retrabajo.</li>
+      </ul>
+    `
+  },
+  {
+    id: "ind-clase11",
+    category: ["individual"],
+    badge: "Individual · Clase 11",
+    badgeClass: "tag-ind",
+    title: "Autoevaluación Clase 11: Lingüística, Ontología y Léxico Extendido (LEL)",
+    summary: "Formalización terminológica (idioma, lenguaje, dialecto, argot), definición multinivel del concepto «ticket» (diccionario, glosario técnico y ontología formal) y glosario LEL de reserva/pago de tickets.",
+    content: `
+      <h4>1. Definiciones Lingüísticas Formalizadas</h4>
+      <ul>
+        <li><strong>Idioma:</strong> Lengua considerada desde una perspectiva sociopolítica, institucional o nacional, con estatus oficial y codificación gramatical.</li>
+        <li><strong>Lenguaje:</strong> Facultad humana biológica, cognitiva y simbólica para comunicarse mediante un sistema estructurado de signos.</li>
+        <li><strong>Dialecto:</strong> Variedad lingüística diatópica (geográfica) derivada de un tronco común con rasgos fonéticos, léxicos o morfosintácticos propios.</li>
+        <li><strong>Argot:</strong> Variedad diastrática o diafásica compartida por un grupo social, gremio u oficio que refuerza su identidad o restringe la comprensión externa.</li>
+      </ul>
+      <h4>2. Definición Triple del Concepto «Ticket»</h4>
+      <ul>
+        <li><strong>Diccionario:</strong> Comprobante o recibo de pago; billete de acceso a un evento/transporte; marca de verificación al margen.</li>
+        <li><strong>Glosario (Soporte Técnico / Help Desk):</strong> Unidad de registro estructurada con ID único, solicitante, estado, prioridad, categoría y marcas temporales SLA.</li>
+        <li><strong>Ontología (Clase ArtefactoInformacional):</strong> Subclase de Registro con propiedades de datos (<em>tieneIdentificador</em>, <em>fechaCreacion</em>, <em>nivelPrioridad</em>) y relaciones formales (<em>esReportadoPor</em>, <em>refiereA</em>, <em>tieneEstado</em> exactamente uno).</li>
+      </ul>
+      <h4>3. Glosario LEL (Dominio: Compra y Reserva de Tickets)</h4>
+      <table>
+        <thead><tr><th>Símbolo</th><th>Tipo</th><th>Noción</th><th>Impacto</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cliente</strong></td><td>Sujeto</td><td>Persona física o jurídica que consulta, reserva o adquiere un ticket.</td><td>Genera un ticket reservado; ejecuta pagar con tarjeta de crédito o pagar en efectivo.</td></tr>
+          <tr><td><strong>Pagar con tarjeta de crédito</strong></td><td>Verbo</td><td>Abono electrónico de un ticket reservado sujeto a autorización emisora.</td><td>Valida fondos/límite; si aprueba, pasa ticket reservado a ticket pagado.</td></tr>
+          <tr><td><strong>Pagar en efectivo</strong></td><td>Verbo</td><td>Liquidación presencial en moneda de curso legal en caja habilitada.</td><td>Verifica monto y plazo; transforma ticket reservado en ticket pagado.</td></tr>
+          <tr><td><strong>Ticket reservado</strong></td><td>Estado</td><td>Bloqueo temporal exclusivo de un ticket pendiente de confirmación de pago.</td><td>Impide selección por terceros; habilita el pago o libera el ticket al vencer el plazo.</td></tr>
+        </tbody>
+      </table>
+    `
+  },
+  {
+    id: "ind-clase13",
+    category: ["individual"],
+    badge: "Individual · Clase 13",
+    badgeClass: "tag-ind",
+    title: "Actividad Clase 13: Caso de Uso, Historia de Usuario y Escenario (Restaurante Pizzini)",
+    summary: "Especificación individual aplicada al dominio del TP Integrador: Caso de Uso «Registrar ingreso de cliente con reserva», Historia de Usuario con criterios verificables y Escenario concreto.",
+    content: `
+      <h4>1. Caso de Uso: Registrar ingreso de cliente con reserva (Check-in)</h4>
+      <ul>
+        <li><strong>Actor principal:</strong> Recepcionista</li>
+        <li><strong>Precondición:</strong> Recepcionista autenticado y existencia de al menos una reserva en estado <em>Pendiente</em> para la fecha actual.</li>
+        <li><strong>Flujo principal:</strong> (1) Selecciona «Registrar ingreso» e ingresa DNI o N.° de reserva; (2) El sistema muestra reserva vigente y mesa asignada; (3) Confirma llegada; (4) La reserva pasa a <em>Cumplida</em> y la mesa pasa de <em>Reservada</em> a <em>Ocupada</em> con hora efectiva.</li>
+        <li><strong>Flujos alternativos:</strong> 2.a Reserva no encontrada/vencida; 3.a Cambio en cantidad de comensales que supera capacidad; 3.b Cancelación en el momento (libera mesa a <em>Disponible</em>).</li>
+        <li><strong>Postcondición:</strong> Reserva en estado <em>Cumplida</em> y mesa en estado <em>Ocupada</em>.</li>
+      </ul>
+      <h4>2. Historia de Usuario y Criterios de Aceptación</h4>
+      <p><strong>Historia:</strong> «Como recepcionista, quiero registrar la llegada del cliente asociado a una reserva pendiente, para actualizar en tiempo real la ocupación del salón y habilitar la apertura de la mesa.»</p>
+      <ul>
+        <li>Filtrado exclusivo de reservas <em>Pendiente</em> del día al buscar por DNI o código.</li>
+        <li>Transición automática de mesa de <em>Reservada</em> a <em>Ocupada</em>.</li>
+        <li>Alerta visual si transcurrieron más de 20 minutos desde la hora pactada.</li>
+        <li>Actualización en el plano del salón en menos de 2 segundos.</li>
+      </ul>
+      <h4>3. Escenario Concreto</h4>
+      <p>Viernes 21:35 hs. Martín Pérez y tres acompañantes se anuncian en recepción. Laura (recepcionista) ingresa el DNI, visualiza la reserva N.° 1048 (21:30 hs, 4 personas, Mesa 7) y confirma el ingreso: la reserva pasa a <em>Cumplida</em> y la Mesa 7 queda <em>Ocupada</em> habilitando la carga de comanda.</p>
+    `
+  },
+
+  // 9 TRABAJOS GRUPALES (GRUPO 4)
+  {
+    id: "grp-clase1",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Clase 1",
+    badgeClass: "tag-grp",
+    title: "Clase 1: Naturaleza del Software y Selección de Cualidades",
+    summary: "Matriz comparativa del software frente a bienes físicos e intelectuales (intangibilidad, modificabilidad, degradación, costo de reproducción) y justificación de Robustez y Mantenibilidad.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <h4>1. Caracterización Comparativa del Software</h4>
+      <p>Análisis de 10 dimensiones comparando <strong>Software</strong> frente a Puente, Automóvil, Novela y Proyecto de Investigación: producto intangible, alto contenido intelectual, basado en equipos y proyectos, I+D y producción unidas, modificabilidad indefinida, sin degradación física y costo de reproducción despreciable.</p>
+      <h4>2. Cualidades Organizacionales Seleccionadas</h4>
+      <ul>
+        <li><strong>Robustez:</strong> Capacidad del sistema para comportarse de manera razonable y controlada incluso ante entradas inválidas o condiciones inesperadas («un sistema que no es robusto, no sirve»).</li>
+        <li><strong>Mantenibilidad:</strong> Facilidad con la que un sistema puede ser corregido ante defectos, adaptado a cambios del entorno y evolucionado con nuevos requerimientos.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-clase4",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Clase 4",
+    badgeClass: "tag-grp",
+    title: "Clase 4: Sistema de Biblioteca de la Facultad — Necesidades, Requerimientos y Stakeholders",
+    summary: "Análisis inicial del caso de estudio de biblioteca universitaria: distinción entre necesidades, deseos y expectativas; requerimientos de usuario vs. sistema; y mapa de stakeholders.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <h4>1. Necesidades, Deseos y Expectativas</h4>
+      <ul>
+        <li><strong>Necesidades:</strong> Seguimiento de préstamos y devoluciones, consulta de disponibilidad de ejemplares y restricción de retiro exclusivo a miembros de la facultad.</li>
+        <li><strong>Deseos:</strong> Reservas online, acceso multidispositivo y seguimiento vía correo electrónico.</li>
+        <li><strong>Expectativas:</strong> Respuestas en pocos segundos, protección de datos personales y uso intuitivo sin capacitación exhaustiva.</li>
+      </ul>
+      <h4>2. Requerimientos de Usuario vs. Requerimientos del Sistema</h4>
+      <p>Los <strong>requerimientos de usuario</strong> se redactan en lenguaje natural accesible para cliente y usuarios; los <strong>requerimientos del sistema</strong> detallan funciones, condiciones, restricciones y capacidades técnicas para el equipo de desarrollo.</p>
+      <h4>3. Stakeholders Identificados</h4>
+      <ul>
+        <li><strong>Usuarios directos:</strong> Alumnos, docentes y personal bibliotecario.</li>
+        <li><strong>Organizacionales:</strong> Decano, Vicedecano, Secretaría Académica (dependencia funcional), Secretarías y Direcciones.</li>
+        <li><strong>Externos:</strong> Empresa de desarrollo contratada y proveedores bibliográficos / bases de datos.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-tp1",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · TP N.º 1",
+    badgeClass: "tag-grp",
+    title: "TP Grupal N.º 1: Metodologías de Desarrollo y su Relación con la Ingeniería de Requerimientos",
+    summary: "Investigación comparativa bajo estándares IEEE 830 e ISO/IEC/IEEE 29148 sobre Cascada, RUP, Modelo en V, Scrum y CMMI: definición de requisitos, trazabilidad, gestión de cambios y herramientas.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <h4>Cuadro Comparativo de Metodologías</h4>
+      <table>
+        <thead><tr><th>Criterio</th><th>Cascada</th><th>RUP</th><th>Modelo en V</th><th>Scrum</th><th>CMMI</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Definición Req.</strong></td><td>Inicial</td><td>Iterativa</td><td>Inicial</td><td>Continua</td><td>Formal / Definido</td></tr>
+          <tr><td><strong>Gestión Cambio</strong></td><td>Rígida</td><td>Flexible</td><td>Rígida</td><td>Muy Alta</td><td>Estricta (CCB)</td></tr>
+          <tr><td><strong>Documentación</strong></td><td>Alta (SRS)</td><td>Alta (UML/CU)</td><td>Muy Alta (RTM)</td><td>Mínima (Backlog)</td><td>Alta / Auditada</td></tr>
+          <tr><td><strong>Foco Principal</strong></td><td>Secuencial</td><td>Arquitectura</td><td>Verificación/Validación</td><td>Entrega de valor</td><td>Madurez de procesos</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusión:</strong> Existe una dicotomía entre enfoques predictivos (ideales para sistemas críticos con requisitos estables) y empíricos (superiores en entornos volátiles), situándose RUP como puente iterativo centrado en arquitectura.</p>
+    `
+  },
+  {
+    id: "grp-bicis",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Especificación",
+    badgeClass: "tag-grp",
+    title: "Actividad Práctica: Especificación y Desambiguación — Sistema de Bicicletas",
+    summary: "Redacción de RF y RNF, tabla de corrección de requerimientos ambiguos (seguridad, reservas concurrentes, mapa offline) y glosario del dominio.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <h4>1. Requerimientos Funcionales y No Funcionales</h4>
+      <ul>
+        <li><strong>RF01–RF04:</strong> Registro e inicio de sesión; reservar bicicleta; visualizar mapa de estaciones; reportar problemas.</li>
+        <li><strong>RNF01–RNF03:</strong> Bloqueo contra reservas duplicadas; carga rápida del mapa offline; cifrado de datos y contraseñas.</li>
+      </ul>
+      <h4>2. Corrección de Ambigüedades</h4>
+      <table>
+        <thead><tr><th>Enunciado Ambiguo</th><th>Enunciado Corregido y Verificable</th></tr></thead>
+        <tbody>
+          <tr><td>El sistema debe tener buena seguridad.</td><td>Encriptar datos sensibles y contraseñas de los usuarios.</td></tr>
+          <tr><td>Hacer reservas sin problemas.</td><td>Permitir reservar una bicicleta disponible por un tiempo determinado (15 min).</td></tr>
+          <tr><td>Mostrar las estaciones como sea.</td><td>Mostrar mapa interactivo con la ubicación exacta de las estaciones.</td></tr>
+          <tr><td>Usar el mapa cuando no hay conexión.</td><td>Permitir consultar el mapa de estaciones en modo offline.</td></tr>
+        </tbody>
+      </table>
+    `
+  },
+  {
+    id: "grp-turnos",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Procesos IR",
+    badgeClass: "tag-grp",
+    title: "Actividad Procesos de IR: Sistema de Turnos Médicos (Elicitación, Trazabilidad y Cambios)",
+    summary: "Ciclo completo sobre un sistema de turnos de salud: stakeholders, guía de preguntas, RF/RNF, validación con wireframes, trazabilidad extremo a extremo y análisis de impacto ante cambios.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <ul>
+        <li><strong>Stakeholders y Elicitación:</strong> Recepcionistas, médicos y pacientes; 5 preguntas clave sobre superposición, ausentismo, canales y duración de consulta.</li>
+        <li><strong>RF y RNF:</strong> Búsqueda por médico/especialidad/fecha (RF1), bloqueo concurrente (RF2), notificaciones automáticas (RF3), gestión de agenda (RF4), disponibilidad 24/7 (RNF1) y protección de datos clínicos (RNF2).</li>
+        <li><strong>Validación:</strong> Wireframes de baja fidelidad y reuniones de revisión con administración y pacientes.</li>
+        <li><strong>Trazabilidad y Gestión de Cambios:</strong> Cadena desde necesidad de no duplicar turnos hasta <em>unique constraint</em> en BD y prueba concurrente; evaluación de impacto para incorporar cancelación online por el paciente.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-inv1",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Investigación 1",
+    badgeClass: "tag-grp",
+    title: "Investigación Bibliográfica 1: Buenas Prácticas en Elicitación bajo ISO/IEC/IEEE 29148",
+    summary: "Ficha técnica del artículo de Parra-Quero, Palma-Urdaneta, Torres-Samuel y Durán-Garrido (UCLA, 2020) sobre aseguramiento de calidad en la etapa de elicitación.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <ul>
+        <li><strong>Artículo:</strong> <em>Caracterización de buenas prácticas en la elicitación de requisitos de software referidas en el estándar ISO/IEC/IEEE 29148</em> (Junio 2020, UCLA).</li>
+        <li><strong>Aporte principal:</strong> Integra prácticas ágiles, iterativas y livianas en la elicitación con el aseguramiento de calidad normado por ISO/IEC/IEEE 29148 para prevenir fallas tempranas sin burocratizar el desarrollo.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-inv2",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Investigación 2",
+    badgeClass: "tag-grp",
+    title: "Investigación Bibliográfica 2: Técnicas y Fuentes de Elicitación en la Industria (UNLP)",
+    summary: "Informe analítico sobre el estudio empírico de Alejandro Oliveros y Leandro Antonelli respecto a la brecha entre academia e industria en el uso real de técnicas de elicitación.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <ul>
+        <li><strong>Base conceptual:</strong> Taxonomía de Nuseibeh y Easterbrook (6 familias de técnicas) y taxonomía propia de fuentes (entrevistas, formularios, desarrollos previos y productos del mundo real).</li>
+        <li><strong>Resultados empíricos:</strong> Alta adopción de técnicas tradicionales como entrevistas (92%) y brainstorming (62%), frente a menor uso de prototipación (23%) y técnicas cognitivas (23%), evidenciando dependencia de notas propias (85%) sobre documentación formal.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-inv3",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · Investigación 3",
+    badgeClass: "tag-grp",
+    title: "Investigación Bibliográfica 3: Uso de LLMs para PLN en Ingeniería de Requerimientos",
+    summary: "Análisis del paper de Andreas Vogelsang y Jannik Fischbach (2024) sobre árboles de decisión para aplicar modelos de lenguaje en clasificación y generación de requisitos.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <ul>
+        <li><strong>Autores e Institución:</strong> A. Vogelsang y J. Fischbach (Univ. de Colonia / fortiss GmbH, Febrero 2024).</li>
+        <li><strong>Síntesis:</strong> Divide las tareas de PLN en <em>comprensión</em> (detección de ambigüedades y clasificación con modelos tipo BERT) y <em>generación</em> (historias de usuario y casos de prueba con GPT/LLaMA), enfatizando la validación humana obligatoria para evitar alucinaciones.</li>
+      </ul>
+    `
+  },
+  {
+    id: "grp-tpi",
+    category: ["grupal"],
+    badge: "Grupal · Grupo 4 · TP Integrador",
+    badgeClass: "tag-grp",
+    title: "TP Integrador (Entregas 1, 2 y 3): Restaurante Pizzini & «Podcast del Ingeniero»",
+    summary: "Proyecto troncal de la cursada: definición del dominio, 9 stakeholders, plan de elicitación, atributos de calidad priorizados, LEL (8 símbolos), Casos de Uso, Historias de Usuario y guiones de Episodios 1 y 2.",
+    content: `
+      <h4>Integrantes Grupo 4</h4>
+      <p>Damián Ezequiel Bacque, Santiago Joaquín Pelozo, Juan Ignacio Saavedra, Facundo Nicolás Tateossian, Liam Gabriel Tejada Fusaro.</p>
+      <h4>Entrega 1 — Enunciado del Dominio (Restaurante Pizzini, Lanús)</h4>
+      <p>Restaurante familiar con 20 mesas (salón y vereda), 80–100 cubiertos/noche y ~40 envíos a domicilio. Operación manual en papel (cuaderno de reservas, comandas duplicadas, talonario) distribuida en Gerencia, Recepción, Salón, Cocina, Caja y Reparto.</p>
+      <h4>Entrega 2 — Podcast Ep. 1: Stakeholders, Elicitación y Cualidades</h4>
+      <ul>
+        <li><strong>Definición clave desambiguada:</strong> <em>Mesa disponible</em> = sin reserva confirmada dentro de los 90 minutos siguientes ni atención en curso.</li>
+        <li><strong>9 Stakeholders relevados:</strong> Dueño, Encargado de salón, Recepcionista, Mozo, Cocinero, Cajero, Repartidor, Cliente final y Banco/Pasarela.</li>
+        <li><strong>Técnicas justificadas:</strong> Entrevista abierta/estructurada, observación directa en servicio (conocimiento tácito), análisis documental, prototipado de baja fidelidad y cuestionarios (descartando JAD por impacto operativo).</li>
+        <li><strong>Cualidades priorizadas y medibles:</strong> (1) Integridad de datos (0 solapamientos), (2) Usabilidad (carga de pedido &lt; 60s), (3) Disponibilidad en horario de servicio (19:00 a 01:00).</li>
+      </ul>
+      <h4>Entrega 3 (Final) — Podcast Ep. 2: ERS, LEL, Casos de Uso e Historias de Usuario</h4>
+      <ul>
+        <li><strong>Gap semántico y LEL:</strong> Resolución de ambigüedad en «mesa libre» y definición de 8 símbolos con noción, impacto y circularidad (Cliente, Mozo, Mesa, Reserva, Generar reserva, Registrar entrega, Mesa disponible, Pedido en camino).</li>
+        <li><strong>Artefactos especificados:</strong> RU-01..03, RS-01..03, RF-01..03, RNF-01..03, Casos de Uso <strong>CU-01 (Generar reserva)</strong> y <strong>CU-16 (Registrar entrega delivery)</strong>, e Historias de Usuario <strong>HU-01 a HU-03</strong> con criterios verificables.</li>
+        <li><strong>Identidad visual y audio:</strong> Producción de mesa redonda de 5 voces en BandLab e imagen de portada generada con IA (micrófono, mesa servida y pizarrón con casos de uso).</li>
+      </ul>
+    `
+  }
+];
+
+const grid = document.getElementById("cardsGrid");
+const searchInput = document.getElementById("searchInput");
+const filterBtns = document.querySelectorAll(".filter-btn");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalTitle = document.getElementById("modalTitle");
+const modalTag = document.getElementById("modalTag");
+const modalBody = document.getElementById("modalBody");
+const closeModalBtn = document.getElementById("closeModal");
+
+let currentFilter = "all";
+
+function renderCards() {
+  const q = searchInput.value.toLowerCase().trim();
+  grid.innerHTML = "";
+  const filtered = ITEMS.filter(item => {
+    const matchesCat = currentFilter === "all" || item.category.includes(currentFilter);
+    const matchesQuery = !q ||
+      item.title.toLowerCase().includes(q) ||
+      item.summary.toLowerCase().includes(q) ||
+      item.badge.toLowerCase().includes(q);
+    return matchesCat && matchesQuery;
+  });
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML = `
+      <div>
+        <div class="card-top">
+          <span class="tag ${item.badgeClass}">${item.badge}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p>${item.summary}</p>
+      </div>
+      <button class="btn-open" data-id="${item.id}">Ver desarrollo completo</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  document.querySelectorAll(".btn-open").forEach(btn => {
+    btn.addEventListener("click", () => openModal(btn.dataset.id));
+  });
+}
+
+function openModal(id) {
+  const item = ITEMS.find(x => x.id === id);
+  if (!item) return;
+  modalTag.innerHTML = `<span class="tag ${item.badgeClass}">${item.badge}</span>`;
+  modalTitle.textContent = item.title;
+  modalBody.innerHTML = item.content;
+  modalBackdrop.classList.add("open");
+}
+
+closeModalBtn.addEventListener("click", () => modalBackdrop.classList.remove("open"));
+modalBackdrop.addEventListener("click", e => {
+  if (e.target === modalBackdrop) modalBackdrop.classList.remove("open");
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") modalBackdrop.classList.remove("open");
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    renderCards();
+  });
+});
+
+searchInput.addEventListener("input", renderCards);
+renderCards();
+</script>
+</body>
+</html>
